@@ -1,5 +1,5 @@
-with Actions;
 with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
+with Registry.Actions; use Registry.Actions;
 
 package body Registry is
    function TUS (Str : String) return Unbounded_String renames To_Unbounded_String;
