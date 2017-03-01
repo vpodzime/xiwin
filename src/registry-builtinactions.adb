@@ -1,9 +1,9 @@
 with GNAT.OS_Lib;
 with GNAT.Command_Line; use GNAT.Command_Line;
 with Ada.Strings.Unbounded;
+with Registry.Actions; use Registry.Actions;
 
-
-package body Registry.Actions is
+package body Registry.BuiltinActions is
 
    procedure Show_Bug (Input: User_Input) is
       package OS renames GNAT.OS_Lib;
@@ -32,4 +32,4 @@ package body Registry.Actions is
       OS.Free (Path);
    end Show_Bug;
 
-end Registry.Actions;
+end Registry.BuiltinActions;

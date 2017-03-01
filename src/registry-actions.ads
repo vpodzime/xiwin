@@ -22,6 +22,4 @@ package Registry.Actions is
    type Action_Access is access all Action;
    type Actions_List is array (Natural range <>) of Action_Access;
 
-   procedure Show_Bug (Input: User_Input);
-
 end Registry.Actions;

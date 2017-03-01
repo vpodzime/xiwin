@@ -1,10 +1,11 @@
 with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
 with Registry.Actions; use Registry.Actions;
+with Registry.BuiltinActions;
 
 package body Registry is
    function TUS (Str : String) return Unbounded_String renames To_Unbounded_String;
    Show_Bug : aliased Action (Specific) := (Specific,
-                                            A_Task => Actions.Show_Bug'Access,
+                                            A_Task => BuiltinActions.Show_Bug'Access,
                                             Desc => Action_Desc (TUS("Show rhbz bug report")),
                                             Cmd => Action_Cmd (TUS("show-bug"))
                                            );
