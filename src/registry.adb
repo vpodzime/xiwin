@@ -1,6 +1,6 @@
 with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
-with Registry.Actions; use Registry.Actions;
-with Registry.BuiltinActions;
+with Actions; use Actions;
+with BuiltinActions;
 
 package body Registry is
    function TUS (Str : String) return Unbounded_String renames To_Unbounded_String;

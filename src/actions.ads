@@ -1,7 +1,7 @@
 with Ada.Strings.Unbounded;  use Ada.Strings.Unbounded;
 
-package Registry.Actions is
-   type User_Input is new Unbounded_String;
+package Actions is
+   subtype User_Input is String (1..100);
 
    type Action_Desc is new Unbounded_String;  --  String(1..100);
    type Action_Cmd is new Unbounded_String;
@@ -24,4 +24,4 @@ package Registry.Actions is
    type Action_Access is access all Action;
    type Actions_List is array (Natural range <>) of Action_Access;
 
-end Registry.Actions;
+end Actions;

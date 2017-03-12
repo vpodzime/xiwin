@@ -1,9 +1,9 @@
 with GNAT.OS_Lib;
 with GNAT.Command_Line; use GNAT.Command_Line;
 with Ada.Strings.Unbounded;
-with Registry.Actions; use Registry.Actions;
+with Actions; use Actions;
 
-package body Registry.BuiltinActions is
+package body BuiltinActions is
 
    procedure Show_Bug (Input: User_Input) is
       package OS renames GNAT.OS_Lib;
@@ -19,7 +19,7 @@ package body Registry.BuiltinActions is
       All_Args    : UStr.Unbounded_String;
 
    begin
-      In_Args := "https://bugzilla.redhat.com/show_bug.cgi?id=" & Ustr.Unbounded_String(Input);
+      In_Args := "https://bugzilla.redhat.com/show_bug.cgi?id=" & Ustr.To_Unbounded_String(Input);
       All_Args := FF_Command & " " & In_Args;
       Args := OS.Argument_String_To_List (Ustr.To_String(All_Args));
       Path := OS.Locate_Exec_On_Path (FF_Command);
@@ -32,4 +32,4 @@ package body Registry.BuiltinActions is
       OS.Free (Path);
    end Show_Bug;
 
-end Registry.BuiltinActions;
+end BuiltinActions;

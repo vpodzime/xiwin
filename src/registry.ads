@@ -1,5 +1,5 @@
-limited with Registry.Actions;
+with Actions;
 
 package Registry is
-   function Get_Actions (Input: Registry.Actions.User_Input) return Registry.Actions.Actions_List;
+   function Get_Actions (Input: Actions.User_Input) return Actions.Actions_List;
 end;
