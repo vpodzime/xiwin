@@ -6,8 +6,8 @@ package body Registry is
    function TUS (Str : String) return Unbounded_String renames To_Unbounded_String;
    Show_Bug : aliased Action (Specific) := (Specific,
                                             A_Task => BuiltinActions.Show_Bug'Access,
-                                            Desc => Action_Desc (TUS("Show rhbz bug report")),
-                                            Cmd => Action_Cmd (TUS("show-bug"))
+                                            Desc => Action_Desc (TUS ("Show rhbz bug report")),
+                                            Cmd => Action_Cmd (TUS ("show-bug"))
                                            );
 
 

@@ -1,3 +1,5 @@
+with Ada.Strings.Unbounded;  use Ada.Strings.Unbounded;
+
 package Registry.Actions is
    type User_Input is new Unbounded_String;
 

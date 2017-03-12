@@ -1,4 +1,3 @@
-with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
 limited with Registry.Actions;
 
 package Registry is
