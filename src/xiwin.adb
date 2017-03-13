@@ -10,11 +10,9 @@ procedure Xiwin is
    use Ada.Strings.Unbounded;
    procedure Print (Str : String) renames Ada.Text_IO.Put_Line;
 
-   Input : User_Input;
-
 begin
-   Input := CLI.Get_User_Input;
    declare
+      Input : User_Input := CLI.Get_User_Input;
       Choices : Actions_List := Registry.Get_Actions (Input);
    begin
       for A of Choices loop

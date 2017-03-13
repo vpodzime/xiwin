@@ -7,11 +7,11 @@ package body CLI is
    package T_IO renames Ada.Text_IO;
 
    function Get_User_Input return User_Input is
-      Input : User_Input;
+      Input : User_Input (1..User_Input_Max_Len);
       N_Read : Natural;
    begin
       T_IO.Put ("> ");
-      T_IO.Get_Line (Input, N_Read);
+      T_IO.Get_Line (String (Input), N_Read);
       return Input;
    end Get_User_Input;
 

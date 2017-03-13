@@ -19,7 +19,7 @@ package body BuiltinActions is
       All_Args    : UStr.Unbounded_String;
 
    begin
-      In_Args := "https://bugzilla.redhat.com/show_bug.cgi?id=" & Ustr.To_Unbounded_String(Input);
+      In_Args := "https://bugzilla.redhat.com/show_bug.cgi?id=" & Ustr.To_Unbounded_String (String (Input));
       All_Args := FF_Command & " " & In_Args;
       Args := OS.Argument_String_To_List (Ustr.To_String(All_Args));
       Path := OS.Locate_Exec_On_Path (FF_Command);

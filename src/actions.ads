@@ -1,8 +1,8 @@
 with Ada.Strings.Unbounded;  use Ada.Strings.Unbounded;
 
 package Actions is
-   subtype User_Input is String (1..100);
-
+   User_Input_Max_Len : constant := 100;
+   type User_Input is new String;
    type Action_Desc is new Unbounded_String;  --  String(1..100);
    type Action_Cmd is new Unbounded_String;
    type Action_Pattern is new Unbounded_String;
