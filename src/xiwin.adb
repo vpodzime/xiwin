@@ -16,7 +16,7 @@ begin
       Choices : Actions_List := Registry.Get_Actions (Input);
    begin
       for A of Choices loop
-         Print ("Would run: " & To_String (A.Desc));
+         Print ("Would run: " & To_String (A.Desc) & "with '" & String (Input) & "'");
       end loop;
    end;
 end Xiwin;

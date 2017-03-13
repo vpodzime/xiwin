@@ -12,7 +12,7 @@ package body CLI is
    begin
       T_IO.Put ("> ");
       T_IO.Get_Line (String (Input), N_Read);
-      return Input;
+      return Input (1..N_Read);
    end Get_User_Input;
 
 end CLI;
