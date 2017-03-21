@@ -15,8 +15,12 @@ begin
       Input : User_Input := CLI.Get_User_Input;
       Choices : Actions_List := Registry.Get_Actions (Input);
    begin
-      for A of Choices loop
-         Print ("Would run: " & To_String (A.Desc) & "with '" & String (Input) & "'");
-      end loop;
+      if Choices'Last /= 0 then
+         for A of Choices loop
+            Print ("Could run: " & To_String (A.Desc) & "with '" & String (Input) & "'");
+         end loop;
+      else
+         Print ("Nothing to run");
+      end if;
    end;
 end Xiwin;
