@@ -2,7 +2,8 @@ with Ada.Strings.Unbounded;  use Ada.Strings.Unbounded;
 
 package Actions is
    User_Input_Max_Len : constant := 100;
-   type User_Input is new String;
+   type User_Input is new String
+     with Dynamic_Predicate => User_Input'Length <= 100 and User_Input'First = 1;
    type Action_Desc is new Unbounded_String;  --  String(1..100);
    type Action_Cmd is new Unbounded_String;
    type Action_Pattern is new Unbounded_String;
