@@ -15,7 +15,7 @@ begin
       Input : User_Input := CLI.Get_User_Input;
       Choices : Actions_List := Registry.Get_Actions (Input);
    begin
-      if Choices'Last /= 0 then
+      if Choices'Length /= 0 then
          for A of Choices loop
             Print ("Could run: " & To_String (A.Desc) & "with '" & String (Input) & "'");
          end loop;
