@@ -1,27 +1,26 @@
 with GNAT.OS_Lib;
 with GNAT.Command_Line; use GNAT.Command_Line;
-with Ada.Strings.Unbounded;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Actions; use Actions;
 
 package body BuiltinActions is
+   function TUS (Str : String) return Unbounded_String renames To_Unbounded_String;
 
    procedure Show_Bug (Input: User_Input) is
       package OS renames GNAT.OS_Lib;
-      package Ustr renames Ada.Strings.Unbounded;
-      use type Ustr.Unbounded_String;
 
       FF_Command  : constant String := "firefox";
       Args        : OS.Argument_List_Access;
       Exit_Status : Integer;
       Path        : OS.String_Access;
-      Cmd         : UStr.Unbounded_String;
-      In_Args     : UStr.Unbounded_String;
-      All_Args    : UStr.Unbounded_String;
+      Cmd         : Unbounded_String;
+      In_Args     : Unbounded_String;
+      All_Args    : Unbounded_String;
 
    begin
-      In_Args := "https://bugzilla.redhat.com/show_bug.cgi?id=" & Ustr.To_Unbounded_String (String (Input));
+      In_Args := "https://bugzilla.redhat.com/show_bug.cgi?id=" & To_Unbounded_String (String (Input));
       All_Args := FF_Command & " " & In_Args;
-      Args := OS.Argument_String_To_List (Ustr.To_String(All_Args));
+      Args := OS.Argument_String_To_List (To_String(All_Args));
       Path := OS.Locate_Exec_On_Path (FF_Command);
       OS.Spawn (Program_Name => Path.all,
                 Args => Args (Args'First + 1..Args'Last),
@@ -31,5 +30,19 @@ package body BuiltinActions is
       OS.Free (Args);
       OS.Free (Path);
    end Show_Bug;
+
+   Show_Bug_Action : aliased Action (Specific) := (Specific,
+                                                   A_Task => Show_Bug'Access,
+                                                   Desc => Action_Desc (TUS ("Show rhbz bug report")),
+                                                   Cmd => Action_Cmd (TUS ("show-bug"))
+                                                  );
+
+
+   -- definitions of public functions
+   function Get_All_Actions return Actions_List is
+      All_Actions : Actions_List (1..1) := (1 => Show_Bug_Action'Access);
+   begin
+      return All_Actions;
+   end Get_All_Actions;
 
 end BuiltinActions;
