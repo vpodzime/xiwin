@@ -17,7 +17,7 @@ begin
    begin
       if Choices'Length /= 0 then
          for A of Choices loop
-            Print ("Could run: " & To_String (A.Desc) & "with '" & String (Input) & "'");
+            Print ("Could run: " & To_String (A.Desc) & " with '" & String (Input) & "'");
          end loop;
       else
          Print ("Nothing to run");

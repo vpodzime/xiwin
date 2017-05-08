@@ -12,14 +12,13 @@ package body Registry is
       N_Matched : Natural := 0;
    begin
       Idx := Ada.Strings.Fixed.Index (String (Input), " ");
-      if (Idx /= 0) then
-         for A of All_Actions loop
-            if A.Kind = Specific and then String (Input (Input'First..Idx-1)) = A.Cmd then
-               N_Matched := N_Matched + 1;
-               Matching (N_Matched) := A;
-            end if;
-         end loop;
-      end if;
+      Idx := (if Idx /= 0 then Idx else Input'Last + 1);
+      for A of All_Actions loop
+         if A.Kind = Specific and then String (Input (Input'First..Idx-1)) = A.Cmd then
+            N_Matched := N_Matched + 1;
+            Matching (N_Matched) := A;
+         end if;
+      end loop;
       return Matching (1..N_Matched);
    end Get_Actions;
 
