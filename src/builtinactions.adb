@@ -18,6 +18,7 @@ package body BuiltinActions is
       All_Args    : Unbounded_String;
 
    begin
+      --  TODO: extract the bug number here from the command or pattern
       In_Args := "https://bugzilla.redhat.com/show_bug.cgi?id=" & To_Unbounded_String (String (Input));
       All_Args := FF_Command & " " & In_Args;
       Args := OS.Argument_String_To_List (To_String(All_Args));
@@ -37,10 +38,17 @@ package body BuiltinActions is
                                                    Cmd => Action_Cmd (TUS ("show-bug"))
                                                   );
 
+   Show_Bug_Pattern_Action : aliased Action (Pattern) := (Pattern,
+                                                          A_Task => Show_Bug'Access,
+                                                          Desc => Action_Desc (TUS ("Show rhbz bug report")),
+                                                          Pattern => Action_Pattern (TUS ("rhbz#[0-9]+"))
+                                                         );
+
 
    -- definitions of public functions
    function Get_All_Actions return Actions_List is
-      All_Actions : Actions_List (1..1) := (1 => Show_Bug_Action'Access);
+      All_Actions : Actions_List (1..2) := (1 => Show_Bug_Action'Access,
+                                            2 => Show_Bug_Pattern_Action'Access);
    begin
       return All_Actions;
    end Get_All_Actions;

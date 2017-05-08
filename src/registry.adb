@@ -3,12 +3,16 @@ with Actions;               use Actions;
 with BuiltinActions;
 with GNAT.String_Split;
 with Ada.Strings.Unbounded;
+with GNAT.Regexp;
 
 package body Registry is
    -- private functions and data
 
    function Get_Short_Cmd (Act: Action) return Action_Cmd
      with Pre => Act.Kind = Specific;
+
+   function Action_Matches (Act: Action; Input: User_Input) return Boolean
+     with Pre => Act.Kind = Pattern;
 
    Builtin_Actions : Actions_List := BuiltinActions.Get_All_Actions;
    All_Actions : Actions_List (Builtin_Actions'Range) := (Builtin_Actions);
@@ -31,6 +35,18 @@ package body Registry is
       return Action_Cmd (Ret);
    end;
 
+   function Action_Matches (Act: Action; Input: User_Input) return Boolean is
+      use GNAT.Regexp;
+      use Ada.Strings.Unbounded;
+      R : Regexp;
+   begin
+      R := Compile (To_String (Act.Pattern), Glob => False, Case_Sensitive => False);
+      return Match (String (Input), R);
+   exception
+      when Error_In_Regexp =>
+         --  TODO: log error here
+         return False;
+   end;
 
    -- public functions follow
 
@@ -44,6 +60,9 @@ package body Registry is
       for A of All_Actions loop
          if A.Kind = Specific and then (String (Input (Input'First..Idx-1)) = A.Cmd or
                                         String (Input (Input'First..Idx-1)) = Get_Short_Cmd (A.all)) then
+            N_Matched := N_Matched + 1;
+            Matching (N_Matched) := A;
+         elsif A.Kind = Pattern and then Action_Matches (A.all, Input) then
             N_Matched := N_Matched + 1;
             Matching (N_Matched) := A;
          end if;
